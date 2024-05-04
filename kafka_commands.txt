@@ -1,0 +1,69 @@
+START KAFKA:
+brew services start zookeeper
+brew services start kafka
+
+STOP KAFKA:
+brew services stop zookeeper
+brew services stop kafka
+
+
+kafka-topics --create \
+--bootstrap-server $KAFKA_BROKERS \
+--replication-factor $NUM_REPLICAS \
+--min.insync.replicas $SYNC_REPLICAS \
+--partitions $NUM_PARTITIONS \
+--topic $UNIQUE_TOPIC_NAME
+EX:
+kafka-topics --create \
+--bootstrap-server localhost:9092 \
+--replication-factor 1 \
+--partitions 1 \
+--config min.insync.replicas=1 \
+--topic my_topic
+
+
+>> kafka-topics --list \
+--bootstrap-server $KAFKA_BROKERS
+EX:
+kafka-topics --list \
+--bootstrap-server localhost:9092
+
+
+>> kafka-topics --describe \
+--bootstrap-server $KAFKA_BROKERS \
+--topic $UNIQUE_TOPIC_NAME
+
+EX:
+kafka-topics --describe \
+--bootstrap-server localhost:9092
+
+
+kafka-topics --delete \
+--bootstrap-server $KAFKA_BROKERS \
+--topic $UNIQUE_TOPIC_NAME
+
+EX:
+kafka-topics --delete \
+--bootstrap-server localhost:9092 \
+--topic my_topic
+
+
+
+
+# Create topic
+docker exec -it kafka kafka-topics.sh \
+--bootstrap-server localhost:9092 \
+--create --topic demo-topic \
+--partitions 1 \
+--replication-factor 1
+
+# List topics
+docker exec -it kafka kafka-topics.sh \
+--bootstrap-server localhost:9092 \
+--list
+
+
+# Delete topic
+docker exec -it kafka kafka-topics.sh \
+--bootstrap-server localhost:9092 \
+--delete --topic demo-topic
