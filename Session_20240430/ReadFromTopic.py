@@ -3,7 +3,7 @@ from kafka import KafkaConsumer
 
 # configs
 broker = "localhost:9092"
-topic = "my-topic"
+topic = "sensor-data"
 group = "my-consumer-group" # radom name, it just needed to create a name for this consumer it self
 consumer_offset = "earliest"  # or "latest"
 
